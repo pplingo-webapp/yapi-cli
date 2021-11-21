@@ -52,12 +52,12 @@ module.exports = {
       })) {
         shell.cd('vendors');
         utils.log('正在下载插件...');
-        shell.exec('npm install  --registry https://registry.npm.taobao.org ' + name);
+        shell.exec('npm install  --registry http://verdaccio.lingoace.com/ ' + name);
         utils.log('更新插件成功')
       }else{
         shell.cd('vendors');
         utils.log('正在下载插件...');
-        shell.exec('npm install  --registry https://registry.npm.taobao.org ' + name);
+        shell.exec('npm install  --registry http://verdaccio.lingoace.com/ ' + name);
         utils.log('安装插件成功')
         config.plugins.push({
           name: pluginName
@@ -67,7 +67,7 @@ module.exports = {
       fs.writeFileSync(configFilepath, JSON.stringify(config, null, '   '));
       if(argv.build === true){
         utils.log('正在安装依赖...');
-        shell.exec('npm install --registry https://registry.npm.taobao.org');
+        shell.exec('npm install --registry http://verdaccio.lingoace.com/');
         shell.exec('ykit pack -m')        
         utils.log('编译客户端成功，请重启服务器')
       }

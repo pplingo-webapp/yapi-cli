@@ -6,16 +6,22 @@ const commandsDir = path.resolve(__dirname, 'commands');
 var commands = [];
 var commandsFile = fs.readdirSync(commandsDir);
 commandsFile.forEach(function (file) {
+  // 过滤不是 .js 文件
   if (path.extname(file) !== '.js') return null;
+  // 将相对路径解析为绝对路径，被导入该模块
+  // 如何该模块，没有导出 module.exports
+  // 直接报错
   let commandModule = require(path.resolve(commandsDir, file));
   if (!commandModule) {
     throw new Error('找不到 module 在 ' + file + '文件');
   }
   let commandName = path.basename(file, '.js');
+  // 装置对应的命令模块
   yargs.command(commandName, commandModule.desc, commandModule.setOptions, commandModule.run);
 })
 
 try {
+ 
   yargs.argv;
   if (yargs.argv._.length === 0 && !process.argv[2]) {
     const root = process.cwd();

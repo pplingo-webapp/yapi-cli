@@ -39,21 +39,20 @@ function oldVersion(){
 }
 
 
-function github(version, type = 'npm') {
+function github(version, type = 'github') {
   let url;
   if(version[0] === 'v' || version[0] === 'V'){
     version = version.substr(1)
   }
-
   if(oldVersion().indexOf(version) !== -1){
     type = 'qunar'
   }
 
   if(type === 'github'){
     version = 'v' + version;
-    url = 'https://github.com/YMFE/yapi/archive/' + version + '.zip'
+    url = 'https://github.com/lingoace-public/yapi/archive/refs/tags/' + version + '.zip'
   }else if(type === 'npm'){
-    url = `http://registry.npm.taobao.org/yapi-vendor/download/yapi-vendor-${version}.tgz`
+    url = `http://verdaccio.lingoace.com/yapi-vendor/download/yapi-vendor-${version}.tgz`
   }else {
     version = 'v' + version;
     url = 'http://yapi.demo.qunar.com/publicapi/archive/' + version;
@@ -66,7 +65,7 @@ module.exports ={
   },
 
   getVersions: async function(){
-    let info = await axios.get('http://registry.npm.taobao.org/yapi-vendor');
+    let info = await axios.get('http://verdaccio.lingoace.com/yapi-vendor');
     let versions = Object.keys(info.data.versions).filter(item => (item.indexOf('beta') === -1));
     return [].concat(versions, oldVersion())
   },
@@ -78,9 +77,9 @@ module.exports ={
     console.error(error);
   },
   wget: function ( dest, v, type) {
+
     const url = github(v, type);
     const cmd = download(url, dest, { extract: true, strip: 1 });
-    console.log(url)
     cmd.stdout = process.stdout;  
     return cmd;
   },

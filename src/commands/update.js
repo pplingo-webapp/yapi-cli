@@ -43,10 +43,10 @@ async function run(argv) {
   }
   utils.log('更新版本为' + v);
   let config = require(configFilepath);
-  let npmInstall = 'npm install --production --registry https://registry.npm.taobao.org';
+  let npmInstall = 'npm install --production --registry http://verdaccio.lingoace.com/';
   if (config.plugins && Array.isArray(config.plugins) && config.plugins.length > 0) {
     hasPlugin = true;
-    npmInstall = 'npm install --registry https://registry.npm.taobao.org';
+    npmInstall = 'npm install --registry http://verdaccio.lingoace.com/';
   }
 
   let yapiPath = path.resolve(root, 'vendors');

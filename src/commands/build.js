@@ -21,7 +21,7 @@ module.exports = {
       
       shell.cd('vendors');
       utils.log('正在安装依赖...');
-      shell.exec('npm install --registry https://registry.npm.taobao.org');
+      shell.exec('npm install --registry http://verdaccio.lingoace.com/');
       utils.log('依赖安装完成，正在编译客户端')
       shell.exec('ykit pack -m')
       utils.log('已编译客户端，请重启服务器')

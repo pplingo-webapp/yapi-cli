@@ -55,7 +55,7 @@ async function verifyConfig(config){
 
 function handleNpmInstall(){
   return new Promise(function(resolve, reject){
-    let child = shell.exec('npm install -q --production --registry https://registry.npm.taobao.org', {async: true, silent: true});
+    let child = shell.exec('npm install -q --production --registry http://verdaccio.lingoace.com/', {async: true, silent: true});
     child.stdout.on('data', (data) => {
       console.log(` ${data}`);
     });
@@ -92,8 +92,10 @@ function handleServerInstall(){
 
 async function run(argv){
   root = argv.dir;
+  console.log('root',root);
   let configFilepath = path.resolve(root, 'config.json');
-  
+  console.log('configFilepath',configFilepath);
+
   if(!shell.which('node') || !shell.which('npm')){
     throw new Error('需要配置 node 和 npm 环境');
   }
